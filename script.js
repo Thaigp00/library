@@ -1,4 +1,4 @@
-const library = [new Book("Harry Potter", "J. K. Rowling", 312, false), new Book("Naruto", "Masashi Kishimoto", 700, true)];
+const library = [new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 223, true), new Book("The Lord of the Rings ", "J. R. R. Tolkien", 1077, false)];
 const books = document.querySelector(".books");
 
 function Book(title, author, numberOfPages, read) {
@@ -87,6 +87,49 @@ function update() {
 
 function run() {
     displayBooks();
+
+    const openForm = document.querySelector("nav button.open-form");
+    const form = document.querySelector("dialog");
+    openForm.addEventListener("click", () => {
+        if (!form.hasAttribute("open")) form.showModal();
+    });
+
+    const closeForm = document.querySelector("dialog form button.close-form");
+    closeForm.addEventListener("click", () => form.close());
+
+    const submitBtn = document.querySelector("dialog form button.submit-btn");
+    submitBtn.addEventListener("click", () => {
+        const title = document.querySelector("dialog form input#title");
+        const author = document.querySelector("dialog form input#author");
+        const numberOfPages = document.querySelector("dialog form input#pages");
+        const read = document.querySelector("dialog form input#read");
+
+        if (!title.value) alert("Title required.");
+        else if (!author.value) alert("Author required.");
+        else if (+numberOfPages.value <= 0) alert("Number of pages should be greater than 0.");
+        else if (!(+numberOfPages.value)) alert("Number of pages required.");
+        else {
+            const newBook = new Book(title.value, author.value, +numberOfPages.value, read.checked);
+            addToLibrary(newBook);
+
+            form.close();
+            title.value = "";
+            author.value = "";
+            numberOfPages.value = "";
+            read.checked = false;
+
+            update();
+        }
+    });
 }
 
 run();
+
+// Extra.
+function addRandomBooks(n = 1) {
+    for (let i = 0; i < n; i++) {
+        const newBook = new Book("Title", "Author", 100, false);
+        addToLibrary(newBook);
+        update();
+    }
+}
