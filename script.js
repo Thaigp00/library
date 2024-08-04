@@ -8,6 +8,10 @@ function Book(title, author, numberOfPages, read) {
     this.read = read;
 }
 
+Book.prototype.toggleRead = function() {
+    this.read = !this.read;
+}
+
 function addToLibrary(book) {
     library.push(book);
 }
@@ -58,7 +62,7 @@ function displayBooks() {
         readToggler.textContent = (book.read) ? "Read" : "Not read";
         readToggler.addEventListener("click", (event) => {
             const libraryIndex = event.target.parentNode.attributes.index.value;
-            library[libraryIndex].read = !library[libraryIndex].read;
+            library[libraryIndex].toggleRead();
             update();
         })
         card.appendChild(readToggler);
