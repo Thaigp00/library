@@ -1,16 +1,18 @@
+class Book {
+    constructor(title = "Unknown", author = "Unknown", numberOfPages = 0, read = false) {
+        this.title = title;
+        this.author = author;
+        this.numberOfPages = numberOfPages;
+        this.read = read;
+    }
+
+    toggleRead() {
+        this.read = !this.read;
+    }
+}
+
 const library = [new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 223, true), new Book("The Lord of the Rings ", "J. R. R. Tolkien", 1077, false)];
 const books = document.querySelector(".books");
-
-function Book(title, author, numberOfPages, read) {
-    this.title = title;
-    this.author = author;
-    this.numberOfPages = numberOfPages;
-    this.read = read;
-}
-
-Book.prototype.toggleRead = function() {
-    this.read = !this.read;
-}
 
 function addToLibrary(book) {
     library.push(book);
@@ -35,7 +37,7 @@ function displayBooks() {
         const card = document.createElement("div");
         card.setAttribute("index", index);
         card.classList.add("book");
-        
+
         // Book Title.
         const title = document.createElement("h4");
         title.textContent = book.title;
@@ -66,7 +68,7 @@ function displayBooks() {
             update();
         })
         card.appendChild(readToggler);
-        
+
         // Delete Button.
         const deleteBtn = document.createElement("button");
         deleteBtn.setAttribute("type", "button");
